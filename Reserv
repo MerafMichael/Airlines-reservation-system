@@ -1,0 +1,422 @@
+#include<iostream>
+using namespace std;
+struct User
+{
+    string userid;
+    string firstName;
+    string middleName;
+    string lastName;
+    string passportNumber;//    int yearOfBirth; //    int monthOfBirth;
+    string dateOfBirth;
+};
+
+struct Airport
+{
+    string airportId;
+    string city;
+};
+
+struct Flight
+{
+    Airport *from;
+    Airport *to;
+    string departureDate;
+    string arrivalDate;
+};
+
+int main()
+{
+    User user;
+    Airport allAirports[] = {
+        {.airportId = "(ADD)",
+            .city = "Addis Ababa",},
+        {.airportId = "(LAL)",
+            .city = "Lalibela",},
+        {.airportId = "(DIR)",
+            .city = "Dire Dawa",},
+        {.airportId = "(AMH)",
+            .city = "Arba Minch",},
+        {.airportId ="(BJR)",
+               .city = "Bahir Dar",},
+        {.airportId = "(AWA)",
+              .city = "Hawassa",},
+    };
+    Flight flight;
+    // Assuming that the plane has 20 rows. 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19
+    // Assuming that the plane has 4 column 'A', 'B', 'C', 'D'
+
+    User *allAvailableSeats[20][4];
+    for (int i = 0; i < 20; ++i)
+        for (int j = 0; j < 4; ++j)
+            allAvailableSeats[i][j] = nullptr;
+
+            
+    int rowIndex = -1, counter=0,srcAirportI, destAirportI, date, menu, choice ,single_trip_price , Round_trip_price ,trip,Flight;
+    float extra_kilos_payment,kilos ,Total_payment;
+    char columnIndex = 'Z';
+    string bookingReferenceNumber, bookingReferenceNumber1, bookingReferenceNumber2,bookingReferenceNumber3, cont;
+    //string flights[6]={"Addis Ababa","Lalibela", "Dire Dawa", "Arba Minch", "Bahir Dar", "Hawassa"};
+
+
+    cout  << "*******************************************************************************" << endl;
+    cout  << "     Welcome to the Ethiopian Airlines Domestic Flight Booking System" << endl;
+    cout  << "*******************************************************************************" << endl;
+    cout  <<endl;
+    cout  <<endl;
+
+    do{
+        cout << "\nPlease Enter" << endl;
+        cout  << "*******************************************************************************" << endl;
+        cout << "1) To Sign Up  " << endl;
+        cout << "2) Book a Flight  " << endl;
+        cout << "3) Select Seat " << endl;
+        cout << "4) Booking Detail " << endl;
+        cout << "5) Check-in " << endl;
+        cout << "6) Cancel a Flight " << endl;
+        cout << "7) Exit" << endl;
+        cin >> menu;
+        switch (menu){
+        case 1:{
+            cout << "\n*******************************************************************************" << endl;
+            cout << "Sign-Up Form\n";
+            cout << "\n*******************************************************************************" << endl;
+            cout << "First Name: ";
+            cin >> user.firstName;
+            cout << "Middle Name: ";
+            cin >> user.middleName;
+            cout << "Last Name: ";
+            cin >> user.lastName;
+            cout << "Enter the ID of the user: ";
+            cin >> user.userid;
+            cout << "Enter your passport number: ";
+            cin >> user.passportNumber;
+            cout << "Enter date of Birth: ";
+            cin >> user.dateOfBirth;
+            cout <<"You have successfully Signed Up."<<endl;
+            cout << "To continue press any Key.";
+            cin >> cont;
+            counter++;
+            break;
+            }
+        case 2:{
+            if (counter !=0){
+            cout << "\n*******************************************************************************" << endl;
+            cout << "Available Airports " << endl;
+            cout << "\n*******************************************************************************" << endl;
+            for (int i = 0; i < 6; ++i){
+                Airport &singleAirport = allAirports[i];
+                cout << i << " " << singleAirport.city << " " <<singleAirport.airportId  << endl;
+                }
+        L1: cout << "Enter the index of the source Airport: ";
+            cin >> srcAirportI;
+            cout << "Enter the index of the destination Airport: ";
+            cin >> destAirportI;
+
+            if (srcAirportI>=0 && srcAirportI<=5 && destAirportI>=0 && destAirportI<=5 && destAirportI != srcAirportI){
+                flight.from = &allAirports[srcAirportI];
+                flight.to = &allAirports[destAirportI];
+
+                if((srcAirportI==0 && destAirportI==1) || (srcAirportI==1 && destAirportI==0))//condition
+                {
+                cout << "\t \t \tFlights Found" << endl << endl;
+                cout << "Date:\t\tDeparture:\tArrival:\tSingle Trip:\t Round Trip\n";
+                cout << "Monday(1)\t 08:00\t\t 11:00\t\t ETB 4000\t ETB 7015\n";
+                cout << "Wednesday(2)\t 08:00\t\t 11:00\t\t ETB 4000\t ETB 7015\n";
+                cout << "Friday(3)\t 08:00\t\t 11:00\t\t ETB 4000\t ETB 7015\n";
+                }
+                else if((srcAirportI==0 && destAirportI==2) || (srcAirportI==2 && destAirportI==0))//condition
+                {
+                cout << "\t \t \tFlights Found" << endl << endl;
+                cout << "Date:\t\t Departure:\tArrival:\t Single Trip:\t Round Trip\n";
+                cout << "Monday(1)\t 09:00\t\t 11:00\t\t ETB 6000\t ETB 11,243\n";
+                cout << "Wednesday(2)\t 09:00\t\t 11:00\t\t ETB 6000\t ETB 11,243\n";
+                cout << "Friday(3)\t 09:00\t\t 11:00\t\t ETB 6000\t ETB 11,243\n";
+                }
+                else if((srcAirportI==0 && destAirportI==3) || (srcAirportI==3 && destAirportI==0))//condition
+                {
+                cout << "\t \t \tFlights Found" << endl << endl;
+                cout << "Date:\t\t Departure:\tArrival:\tSingle Trip:\t Round Trip\n";
+                cout << "Monday(1)\t 10:00\t\t 11:00\t\t ETB 4000\t ETB 7015\n";
+                cout << "Wednesday(2)\t 10:00\t\t 11:00\t\t ETB 4000\t ETB 7015\n";
+                cout << "Friday(3)\t 10:00\t\t 11:00\t\t ETB 4000\t ETB 7015\n";
+                }
+                else if((srcAirportI==0 && destAirportI==4) || (srcAirportI==4 && destAirportI==0))//condition
+                {
+                cout << "\t \t \tFlights Found" << endl << endl;
+                cout << "Date:\t\t Departure:\tArrival:\t Single Trip:\t Round Trip\n";
+                cout << "Monday(1)\t 11:00\t\t 16:00\t\t  ETB 6000\t ETB 11,243\n";
+                cout << "Wednesday(2)\t 10:00\t\t 16:00\t\t  ETB 6000\t ETB 11,243\n";
+                cout << "Friday(3)\t 10:00\t\t 16:00\t\t  ETB 6000\t ETB 11,243\n";
+                }
+                else if((srcAirportI==0 && destAirportI==5) || (srcAirportI==5 && destAirportI==0))//condition
+                {
+                cout << "\t \t \tFlights Found" << endl << endl;
+                cout << "Date:\t\t Departure:\tArrival:\t Single Trip:\t Round Trip\n";
+                cout << "Monday(1)\t 12:00\t\t 16:00\t\t ETB 4000\t ETB 7015\n";
+                cout << "Wednesday(2)\t 12:00\t\t 16:00\t\t ETB 4000\t ETB 7015\n";
+                cout << "Friday(3)\t 12:00\t\t 16:00\t\t ETB 4000\t ETB 7015\n";
+                }
+                else {
+                cout<< "Flight not available.";
+                break;}
+
+                cout << "Please select your date (1-3): ";
+                cin >> date;
+            
+                    switch(date){
+                    case 1:{ //Monday
+                        cout<<"Flight Date: Monday 12,Feb 2024"<<endl;
+                        cout<<"Enter (1) for Single Trip  and (2) for Round Trip"<<endl;
+                        cin>>trip;
+
+                        if(trip==1){
+                            single_trip_price = 4000 ;
+                            cout<<"Enter your baggage kilos:"<<endl;
+                            cin>>kilos;
+                              if (kilos >23){
+                                extra_kilos_payment = (kilos-23)*10;
+                                cout<<"Extra_kilos_payment = birr "<<extra_kilos_payment<<endl;
+                                Total_payment = single_trip_price+ extra_kilos_payment;
+                                cout<<" Total_payment = birr "<<Total_payment<<endl;
+                                }
+                              else {
+                                Total_payment = single_trip_price ;
+                                cout<<" Extra_kilos_payment = 0 ";
+                                cout<<" Total_payment = birr "<<Total_payment<<endl;
+                                }
+                                cout<<"Thank you,Your trip has been successfully booked "<<endl;
+                                    }
+                        if(trip==2){
+                            Round_trip_price = 7015 ;
+                            cout<<" Enter your baggage kilos:"<<endl;
+                            cin>>kilos;
+                              if (kilos >23){
+                                extra_kilos_payment = (kilos-23)*10;
+                                cout<<"Extra_kilos_payment = birr "<<extra_kilos_payment<<endl;
+                                Total_payment = Round_trip_price + extra_kilos_payment;
+                                cout<<"Total_payment = ETB "<<Total_payment<<endl;
+                                }
+                              else{
+                                Total_payment = single_trip_price ;
+                                cout<<"Extra_kilos_payment = 0 ";
+                                cout<<"Total_payment: ETB"<<Total_payment<<endl;
+                                }
+                         cout<<"Thank you,Your trip has been successfully booked "<<endl;
+                                    }
+                        break;
+                        }
+                    case 2:{
+                        cout<<" Wednesday 14,Feb 2024"<<endl;
+                        cout<<"  Enter (1) for Single Trip and (2) for Round Trip"<<endl;
+                        cin>>trip;
+                        if(trip==1){
+                            single_trip_price = 6000 ;
+                            cout<<" Enter your baggage kilos:"<<endl;
+                            cin>>kilos;
+                              if (kilos >23){
+                                extra_kilos_payment = (kilos-23)*10;
+                               cout<<" Extra_kilos_payment = birr "<<extra_kilos_payment<<endl;
+                                Total_payment = single_trip_price + extra_kilos_payment;
+                                cout<<" Total_payment = birr "<<Total_payment<<endl;
+                              }
+                              else{
+                                Total_payment = single_trip_price ;
+                                cout<<" Extra_kilos_payment = 0 ";
+                                cout<<" Total_payment = birr "<<Total_payment<<endl;
+                                }
+                                cout<<" Thank you,Your trip has been successfully booked "<<endl;
+                                }
+                        if(trip==2){
+                            Round_trip_price = 11243 ;
+                            cout<<" Enter your baggage kilos:"<<endl;
+                            cin>>kilos;
+                              if (kilos >23){
+                                extra_kilos_payment = (kilos-23)*10;
+                                cout<<" Extra_kilos_payment = birr "<<extra_kilos_payment<<endl;
+                                Total_payment = Round_trip_price + extra_kilos_payment;
+                                cout<<" Total_payment = birr "<<Total_payment<<endl;
+                                }
+                              else{
+                                Total_payment = Round_trip_price ;
+                                cout<<" Extra_kilos_payment = 0 \n";
+                                cout<<" Total_payment = birr "<<Total_payment<<endl;
+                                }
+                                cout<<" Thank you,Your trip has been successfully booked "<<endl;
+                        }
+                        break;
+                        }
+                       case 3:{
+                            cout<<" Friday 16,Feb 2024 "<<endl;
+                            cout<<" Enter (1) for Single Trip and (2) for Round Trip"<<endl;
+                            cin>>trip;
+
+                            if(trip==1){
+                                single_trip_price = 6000 ;
+                                cout<<" Enter your baggage kilos:"<<endl;
+                              cin>>kilos;
+                              if (kilos >23){
+                                extra_kilos_payment = (kilos-23)*10;
+                               cout<<" Extra_kilos_payment = birr "<<extra_kilos_payment<<endl;
+                                Total_payment = single_trip_price + extra_kilos_payment;
+                                cout<<" Total_payment = birr "<<Total_payment<<endl;
+                              }
+                              else {
+                                Total_payment = single_trip_price ;
+                                cout<<" Extra_kilos_payment = 0 ";
+                                cout<<" Total_payment = birr "<<Total_payment<<endl;
+                              }
+                         cout<<" Thank you,Your trip has been successfully booked "<<endl;
+                                    }
+                            if(trip==2) //round trip
+                            {
+                                Round_trip_price = 11243 ;
+                                cout<<" Enter your baggage kilos:"<<endl;
+                              cin>>kilos;
+                              if (kilos >23){
+                                extra_kilos_payment = (kilos-23)*10;
+                                cout<<" Extra_kilos_payment = birr "<<extra_kilos_payment<<endl;
+                                Total_payment = Round_trip_price + extra_kilos_payment;
+                                cout<<" Total_payment = birr "<<Total_payment<<endl;
+                              }
+                              else{
+                                Total_payment = Round_trip_price ;
+                                cout<<" Extra_kilos_payment = 0 \n";
+                                cout<<" Total_payment = birr "<<Total_payment<<endl;
+                                }
+                            cout<<"Thank you,Your trip has been successfully booked "<<endl;
+                                }
+                        break;}
+                        default:
+                                cout<<"invalid input try again :"<<endl;
+                              }
+                cout << "Departure Date: ";
+                cin >> flight.departureDate;
+                cout << "Arrival Date: ";
+                cin >> flight.arrivalDate;
+
+                bookingReferenceNumber = user.lastName + "-" + (*flight.from).airportId + (*flight.to).airportId;
+                cout << "Your booking reference number is: " << bookingReferenceNumber << endl;
+                }
+            else if (destAirportI == srcAirportI){
+                cout << "Source and Destination Airports are the same."<<endl;
+                goto L1;
+                }
+            else {
+                cout<< " Invalid input"<<endl;
+                goto L1;
+                }
+            break;
+            }
+            else {
+                cout<< "\nPlease sign Up first to Book Your Flight.\n";
+        continue;}
+        }
+        
+    case 3:{
+        cout<< "Enter your Booking Reference Number: ";
+        cin >> bookingReferenceNumber1;
+
+        if ( bookingReferenceNumber1 == bookingReferenceNumber){
+            cout << "Enter the row index (a number from 0 - 7)";
+            cin >> rowIndex;
+            cout << "Enter the column index (a character from A - D) ";
+            cin >> columnIndex;
+            if (allAvailableSeats[rowIndex][columnIndex - 'A'] == nullptr){
+                allAvailableSeats[rowIndex][columnIndex - 'A'] = &user;
+                cout<<"your seat is :" <<rowIndex << columnIndex << endl;
+                }
+            else{
+                cout << "Your seat has been taken by another user. Try another seat.";
+                continue;
+                }
+            cout << "Your seat has been reserved." << endl;
+            cout << "Press any key to go to the menu.\n";
+            cin>> cont;
+            break;}
+            else{
+                cout<< "Invalid Input.";
+            break;}
+            }
+            
+        case 4:{
+            if (counter !=0){
+            cout << "\n**************************" << endl;
+            cout << "      Booking Detail " << endl;
+            cout << "\n**************************" << endl;
+            cout <<endl;
+            cout<< "Passenger Information:\n";
+            cout << "Name: " << user.firstName << " " << user.middleName << " " << user.lastName << endl;
+            cout << "Passport Number: " << user.passportNumber << endl;
+            cout << "Date of Birth: " << user.dateOfBirth << endl;
+            cout << "FROM : " << (*flight.from).airportId << "   To : " << (*flight.to).airportId <<endl;
+            cout << "Departure Date: "<< flight.departureDate  <<endl;
+            cout << "Arrival Date: " <<flight.arrivalDate <<endl;
+
+            if (rowIndex == -1 && columnIndex == 'Z'){
+                cout << "Your seat has not been reserved" << endl;
+                }
+            else{
+                cout << "Your seat is: " << rowIndex << columnIndex << endl;
+                cout << "economy class " <<endl;
+                }
+            cout << "Press any key to go to the menu.\n";
+            cin>> cont;
+            break;
+            }
+            
+            else {
+            cout<< "\nPlease sign Up first to get Booking Information.\n";
+            continue;}
+            }
+            
+        case 5:{
+            cout << "\n*******************" << endl;
+            cout << " Check-In " << endl;
+            cout << "\n*******************" << endl;
+            cout << "Enter your Booking Reference Number to check in: ";
+            cin >> bookingReferenceNumber2;
+
+            if ( bookingReferenceNumber2 == bookingReferenceNumber)
+            cout << "You have successfully checked in!" << endl;
+            else
+            cout<< "Invalid Booking Reference Number"<<endl;
+            cout << "Press any key to go to the menu.\n";
+            cin>> cont;
+            break;
+            }
+
+        case 6:{
+            cout << "\n*******************" << endl;
+            cout << " Cancel Your Flight " << endl;
+            cout << "\n*******************" << endl;
+            cout << "Enter your booking reference number: ";
+            cin >> bookingReferenceNumber3;
+
+             if ( bookingReferenceNumber3 != bookingReferenceNumber2)
+
+            cout << "You have successfully canceled your flight." << endl;
+            else if ( bookingReferenceNumber3 == bookingReferenceNumber2)
+            cout << "You cannot cancel your flight after check-In." << endl;
+            else
+            cout << "Invalid Booking Reference Number.";
+            cout << "Press any key to go to the menu.\n";
+            cin>> cont;
+            break;
+            }
+            
+        case 7:{
+            cout << "\n*****************************************************************" << endl;
+            cout << "   Thank you for choosing Ethiopian Airlines. We hope to see you soon." << endl;
+            cout << "\n*****************************************************************" << endl;
+            return 0;
+            }
+        default:
+            cout << "Error: you should only put numbers 0 through 7.";
+            }
+    } while (menu >= 0 && menu <= 7);
+
+return 0;
+}
+
+
+    
